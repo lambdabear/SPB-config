@@ -54,7 +54,7 @@ impl Config {
     }
 }
 
-pub fn init_config() -> Result<(), String> {
+pub fn init_config() -> Result<Config, String> {
     match File::create("config.json") {
         Ok(mut file) => {
             let config = Config::new(
@@ -70,7 +70,7 @@ pub fn init_config() -> Result<(), String> {
             );
             match serde_json::to_string(&config) {
                 Ok(content) => match file.write_all(&content.into_bytes()) {
-                    Ok(()) => Ok(()),
+                    Ok(()) => Ok(config),
                     Err(_) => Err("write config file failed".to_string()),
                 },
                 Err(_) => Err("serialize failed".to_string()),

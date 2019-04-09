@@ -11,7 +11,7 @@ fn main() {
             save_config("./config.json", config).unwrap();
         }
         Err(_) => match init_config() {
-            Ok(()) => println!("init config file success"),
+            Ok(conf) => println!("init config file success: {:?}", conf),
             Err(e) => println!("{}", e),
         },
     }
