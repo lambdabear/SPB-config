@@ -13,6 +13,7 @@ pub struct Config {
     pub gateway: String,
     pub broker_host: String,
     pub broker_port: u16,
+    topic: String,
 }
 
 impl Config {
@@ -25,6 +26,7 @@ impl Config {
         gateway: String,
         broker_host: String,
         broker_port: u16,
+        topic: String,
     ) -> Config {
         Config {
             device_name,
@@ -35,6 +37,7 @@ impl Config {
             gateway,
             broker_host,
             broker_port,
+            topic,
         }
     }
 
@@ -44,6 +47,10 @@ impl Config {
 
     pub fn get_baud_rate(&self) -> u32 {
         self.baud_rate
+    }
+
+    pub fn get_topic(&self) -> &String {
+        &self.topic
     }
 }
 
@@ -59,6 +66,7 @@ pub fn init_config() -> Result<(), String> {
                 "".to_string(),
                 "localhost".to_string(),
                 1883,
+                "smart-power-box/status".to_string(),
             );
             match serde_json::to_string(&config) {
                 Ok(content) => match file.write_all(&content.into_bytes()) {
