@@ -52,22 +52,26 @@ impl Config {
     pub fn get_topic(&self) -> &String {
         &self.topic
     }
+
+    pub fn init_config_val() -> Config {
+        Config::new(
+            "Smart-Power".to_string(),
+            "ttyS0".to_string(),
+            115200,
+            "".to_string(),
+            "".to_string(),
+            "".to_string(),
+            "localhost".to_string(),
+            1883,
+            "smart-power-box/status".to_string(),
+        )
+    }
 }
 
 pub fn init_config() -> Result<Config, String> {
     match File::create("config.json") {
         Ok(mut file) => {
-            let config = Config::new(
-                "Smart-Power".to_string(),
-                "ttyS0".to_string(),
-                115200,
-                "".to_string(),
-                "".to_string(),
-                "".to_string(),
-                "localhost".to_string(),
-                1883,
-                "smart-power-box/status".to_string(),
-            );
+            let config = Config::init_config_val();
             match serde_json::to_string(&config) {
                 Ok(content) => match file.write_all(&content.into_bytes()) {
                     Ok(()) => Ok(config),
