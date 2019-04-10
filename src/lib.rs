@@ -56,7 +56,7 @@ impl Config {
     pub fn init_config_val() -> Config {
         Config::new(
             "Smart-Power".to_string(),
-            "ttyS0".to_string(),
+            "/dev/ttyS0".to_string(),
             115200,
             "".to_string(),
             "".to_string(),
