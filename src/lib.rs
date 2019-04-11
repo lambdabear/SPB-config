@@ -63,7 +63,8 @@ impl Config {
             "".to_string(),
             "localhost".to_string(),
             1883,
-            "smart-power-box/status".to_string(),
+            // "smart-power-box/status".to_string(),
+            "hello/world".to_string(),
         )
     }
 }
